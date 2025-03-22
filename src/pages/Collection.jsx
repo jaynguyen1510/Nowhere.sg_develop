@@ -19,7 +19,7 @@ const Collection = () => {
         { value: 'low-high', label: 'Sắp xếp theo: Giá thấp đến cao' },
         { value: 'hig-low', label: 'Sắp xếp theo: Giá cao đến thấp' },
     ];
-    const { product } = useContext(ShopContext);
+    const { product, search, showSearch } = useContext(ShopContext);
     const [showFilters, setShowFilter] = useState(false);
     const [filterProducts, setFilterProducts] = useState([]);
     const [category, setCategory] = useState([]);
@@ -43,10 +43,21 @@ const Collection = () => {
             setSubCategory((prev) => [...prev, value]);
         }
     };
+    // Kiểm tra từng ký tự trong search
+    const matchesUnordered = (name, search) => {
+        const lowerName = name.toLowerCase();
+        const lowerSearch = search.toLowerCase();
+        return [...lowerSearch].every((char) => lowerName.includes(char));
+    };
 
     const applyFilter = () => {
         if (product && product.length > 0) {
             let productCopy = product.slice();
+            if (showSearch && search) {
+                productCopy = productCopy.filter(
+                    (item) => typeof item.name === 'string' && matchesUnordered(item.name, search),
+                );
+            }
             if (category.length > 0) {
                 productCopy = productCopy.filter((item) => category.includes(item.category));
             }
@@ -77,7 +88,7 @@ const Collection = () => {
 
     useEffect(() => {
         applyFilter();
-    }, [category, subCategory]);
+    }, [category, subCategory, search, showSearch]);
     useEffect(() => {
         sortProduct();
     }, [sortType]);

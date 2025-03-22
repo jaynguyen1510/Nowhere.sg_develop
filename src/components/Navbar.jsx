@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import Logo from '../assets/logoNowhere_sg.jpg';
+import Logo from '../assets/logoNowhere_sg.png';
 import { Link, NavLink } from 'react-router-dom';
 import { BiCart, BiSearch, BiUser, BiMenu } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';

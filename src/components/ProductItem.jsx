@@ -6,7 +6,7 @@ import { formatPrice } from '../utils/formatPrice';
 const ProductItem = ({ id, image, name, price }) => {
     const { currency } = useContext(ShopContext);
     return (
-        <Link className="text-gray-700 cursor-pointer flex flex-col h-full" to={`/product/${id}`}>
+        <Link className="text-gray-700 cursor-pointer flex flex-col h-full" to={`/products/${id}`}>
             {/* Container ảnh không cố định chiều cao */}
             <div className="overflow-hidden">
                 <img

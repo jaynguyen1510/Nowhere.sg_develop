@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/logoNowhere_sg.jpg';
+import logo from '../assets/logoNowhere_sg.png';
 import { FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 import { BiLogoFacebook } from 'react-icons/bi';
 const Footer = () => {
