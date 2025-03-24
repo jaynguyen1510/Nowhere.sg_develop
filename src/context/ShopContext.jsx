@@ -38,6 +38,19 @@ const product = [
         size: ['S', 'M', 'L', 'XL'],
         subCategory: 'black',
     },
+    {
+        _id: '3',
+        bestSeller: false,
+        date: 1716634345448,
+        description: 'Hello product 1 ',
+        image: [`${productBlack}`, `${typeBlackOne}`, `${typeBlackTwo}`, `${typeBlackThree}`],
+
+        name: 'Áo Trễ vai đen',
+        price: 100000,
+        category: 'Women',
+        size: ['S', 'M', 'L', 'XL'],
+        subCategory: 'black',
+    },
 ];
 
 const ShopContextProvider = (props) => {

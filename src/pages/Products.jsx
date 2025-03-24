@@ -4,11 +4,14 @@ import { ShopContext } from '../context/ShopContext';
 import { useEffect } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { formatPrice } from '../utils/formatPrice';
+import RelatedProducts from '../components/RelatedProducts';
 const Products = () => {
     const { productId } = useParams();
     const { product, currency } = useContext(ShopContext);
     const [productData, setProductData] = useState(false);
     const [image, setImage] = useState('');
+    const [size, setSie] = useState('');
+
     const fetchProductData = async () => {
         product.map((item) => {
             if (item._id === productId) {
@@ -58,8 +61,42 @@ const Products = () => {
                         {formatPrice(productData.price)} {currency}
                     </p>
                     <p className="mt-5 text-gray-500  md:w-4/5">{productData.description}</p>
+                    <div className="flex flex-col gap-4 my-8">
+                        <p>Select Size</p>
+                        <div className="flex gap-2">
+                            {productData.size.map((itemSize, index) => (
+                                <button
+                                    onClick={() => setSie(itemSize)}
+                                    className={`border py-2 px-4 bg-gray-100 ${itemSize === size ? 'border-red-800' : ''}`}
+                                    key={index}
+                                >
+                                    {itemSize}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                    <button className="bg-red-800 text-white px-8 py-3 text-sm  hover:bg-red-900">Thêm sản phẩm</button>
+                    <hr className="mt-8 sm:w-4/5" />
+                    <div className="text-sm text-red-800 mt-5 flex flex-col gap-1">
+                        <p>100% Original product.</p>
+                        <p>Cash on delivery is available on this product.</p>
+                        <p>Easy return and exchange policy within 7 days.</p>
+                    </div>
                 </div>
             </div>
+            {/* {-----------Description & Review Section ------------} */}
+            <div className="mt-20">
+                <div className="flex">
+                    <b className="border px-5 py-3 text-sm">Description</b>
+                    <b className="border px-5 py-3 text-sm">Reviews (122)</b>
+                </div>
+                <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
+                    <p>Sản phẩm được thiết kế với chất liệu cao cấp, mang lại độ bền và sự thoải mái khi sử dụng.</p>
+                    <p>Phù hợp cho nhiều mục đích sử dụng hàng ngày, với kiểu dáng hiện đại và tiện lợi.</p>
+                </div>
+            </div>
+            {/*------------------ display related products ------------------ */}
+            <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
         </div>
     ) : (
         <div className="opacity-0"></div>
