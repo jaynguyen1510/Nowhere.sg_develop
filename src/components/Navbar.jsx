@@ -6,7 +6,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { ShopContext } from '../context/ShopContext';
 const Navbar = () => {
     const [visible, setVisible] = useState(false);
-    const { showSearch, setShowSearch } = useContext(ShopContext);
+    const { showSearch, setShowSearch, getCartCount } = useContext(ShopContext);
     return (
         <div className="flex items-center justify-between py-5 font-medium">
             <Link to={'/'}>
@@ -45,7 +45,7 @@ const Navbar = () => {
                 <Link to="/cart" className="relative">
                     <BiCart size={24} className="w-5 min-w-5 cursor-pointer" />
                     <p className="absolute -right-3 -top-2 w-4 text-center leading-4 bg-red-600 text-white aspect-square rounded-full text-[8px]">
-                        10
+                        {getCartCount()}
                     </p>
                 </Link>
                 <BiMenu onClick={() => setVisible(true)} className="w-5 cursor-pointer sm:hidden" />

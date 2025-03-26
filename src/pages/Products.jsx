@@ -7,10 +7,10 @@ import { formatPrice } from '../utils/formatPrice';
 import RelatedProducts from '../components/RelatedProducts';
 const Products = () => {
     const { productId } = useParams();
-    const { product, currency } = useContext(ShopContext);
+    const { product, currency, addToCart } = useContext(ShopContext);
     const [productData, setProductData] = useState(false);
     const [image, setImage] = useState('');
-    const [size, setSie] = useState('');
+    const [sizeItemProduct, setSize] = useState('');
 
     const fetchProductData = async () => {
         product.map((item) => {
@@ -66,8 +66,8 @@ const Products = () => {
                         <div className="flex gap-2">
                             {productData.size.map((itemSize, index) => (
                                 <button
-                                    onClick={() => setSie(itemSize)}
-                                    className={`border py-2 px-4 bg-gray-100 ${itemSize === size ? 'border-red-800' : ''}`}
+                                    onClick={() => setSize(itemSize)}
+                                    className={`border py-2 px-4 bg-gray-100 ${itemSize === sizeItemProduct ? 'border-red-800' : ''}`}
                                     key={index}
                                 >
                                     {itemSize}
@@ -75,7 +75,12 @@ const Products = () => {
                             ))}
                         </div>
                     </div>
-                    <button className="bg-red-800 text-white px-8 py-3 text-sm  hover:bg-red-900">Thêm sản phẩm</button>
+                    <button
+                        onClick={() => addToCart(productData._id, productData.name, sizeItemProduct)}
+                        className="bg-red-800 text-white px-8 py-3 text-sm  hover:bg-red-900"
+                    >
+                        Thêm sản phẩm
+                    </button>
                     <hr className="mt-8 sm:w-4/5" />
                     <div className="text-sm text-red-800 mt-5 flex flex-col gap-1">
                         <p>100% Original product.</p>
