@@ -44,9 +44,11 @@ const Navbar = () => {
                 </div>
                 <Link to="/cart" className="relative">
                     <BiCart size={24} className="w-5 min-w-5 cursor-pointer" />
-                    <p className="absolute -right-3 -top-2 w-4 text-center leading-4 bg-red-600 text-white aspect-square rounded-full text-[8px]">
-                        {getCartCount()}
-                    </p>
+                    {getCartCount() > 0 && (
+                        <p className="absolute -right-3 -top-2 w-4 text-center leading-4 bg-red-600 text-white aspect-square rounded-full text-[8px]">
+                            {getCartCount()}
+                        </p>
+                    )}
                 </Link>
                 <BiMenu onClick={() => setVisible(true)} className="w-5 cursor-pointer sm:hidden" />
             </div>

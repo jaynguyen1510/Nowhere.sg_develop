@@ -61,25 +61,35 @@ const ShopContextProvider = (props) => {
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({});
 
-    const addToCart = async (itemId, nameProduct, size) => {
+    const addToCart = async (itemId, nameProduct, size, quantity) => {
+        // Kiểm tra chọn size và số lượng
         if (!size) {
             toast.error('Vui lòng lựa chọn size');
             return;
+        } else if (quantity === 0) {
+            toast.error('Vui lòng chọn số lượng');
+            return;
         } else {
-            toast.success(`Đã thêm ${nameProduct} size ${size} vào giỏ hàng`);
+            toast.success(`Đã thêm ${nameProduct} size ${size} với số lượng ${quantity} vào giỏ hàng`);
         }
 
+        // Tạo bản sao của giỏ hàng hiện tại
         let cartData = structuredClone(cartItems);
-        if (cartData[itemId]) {
-            if (cartData[itemId][size]) {
-                cartData[itemId][size] += 1;
-            } else {
-                cartData[itemId][size] = 1;
-            }
-        } else {
+
+        // Nếu chưa có sản phẩm nào trong giỏ hàng theo itemId thì khởi tạo
+        if (!cartData[itemId]) {
             cartData[itemId] = {};
-            cartData[itemId][size] = 1;
         }
+
+        // Nếu sản phẩm theo size này chưa được thêm thì khởi tạo số lượng ban đầu là 0
+        if (!cartData[itemId][size]) {
+            cartData[itemId][size] = 0;
+        }
+
+        // Cộng thêm số lượng sản phẩm
+        cartData[itemId][size] += quantity;
+
+        // Cập nhật lại giỏ hàng
         setCartItems(cartData);
     };
 
@@ -99,6 +109,12 @@ const ShopContextProvider = (props) => {
         return totalCount;
     };
 
+    const upDateFromCart = async (itemId, size, quantity) => {
+        let cartData = structuredClone(cartItems);
+        cartData[itemId][size] = quantity;
+        setCartItems(cartData);
+    };
+
     const value = {
         product,
         currency,
@@ -110,6 +126,7 @@ const ShopContextProvider = (props) => {
         cartItems,
         addToCart,
         getCartCount,
+        upDateFromCart,
     };
     return <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>;
 };

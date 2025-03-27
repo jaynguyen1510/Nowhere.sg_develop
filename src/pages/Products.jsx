@@ -11,6 +11,7 @@ const Products = () => {
     const [productData, setProductData] = useState(false);
     const [image, setImage] = useState('');
     const [sizeItemProduct, setSize] = useState('');
+    const [quantity, setQuantity] = useState(1);
 
     const fetchProductData = async () => {
         product.map((item) => {
@@ -27,6 +28,14 @@ const Products = () => {
     }, [productId, product]);
 
     const starsArray = [...Array(5)];
+    const handleDecrease = () => {
+        if (quantity > 0) {
+            setQuantity(quantity - 1);
+        }
+    };
+    const handleIncrease = () => {
+        setQuantity(quantity + 1);
+    };
 
     return productData ? (
         <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
@@ -75,8 +84,23 @@ const Products = () => {
                             ))}
                         </div>
                     </div>
+                    {/* ----- Quantity selection ----- */}
+                    <div className="flex items-center gap-4 mb-4">
+                        <p>Số lượng:</p>
+                        <button
+                            onClick={handleDecrease}
+                            disabled={quantity === 0}
+                            className="border px-3 py-1 text-xl disabled:opacity-50"
+                        >
+                            -
+                        </button>
+                        <span className="text-xl">{quantity}</span>
+                        <button onClick={handleIncrease} className="border px-3 py-1 text-xl">
+                            +
+                        </button>
+                    </div>
                     <button
-                        onClick={() => addToCart(productData._id, productData.name, sizeItemProduct)}
+                        onClick={() => addToCart(productData._id, productData.name, sizeItemProduct, quantity)}
                         className="bg-red-800 text-white px-8 py-3 text-sm  hover:bg-red-900"
                     >
                         Thêm sản phẩm
