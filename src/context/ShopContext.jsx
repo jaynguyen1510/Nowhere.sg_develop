@@ -10,6 +10,7 @@ import typeWhite1 from '../assets/white1.jpg';
 import typeWhite2 from '../assets/white2.jpg';
 import typeWhite3 from '../assets/white3.jpg';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const ShopContext = createContext();
 
@@ -56,10 +57,11 @@ const product = [
 
 const ShopContextProvider = (props) => {
     const currency = 'VNĐ';
-    const delivery_fee = 10;
+    const delivery_fee = 35000;
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({});
+    const navigate = useNavigate();
 
     const addToCart = async (itemId, nameProduct, size, quantity) => {
         // Kiểm tra chọn size và số lượng
@@ -115,6 +117,23 @@ const ShopContextProvider = (props) => {
         setCartItems(cartData);
     };
 
+    const getCartAmount = () => {
+        let totalAmount = 0;
+        for (const items in cartItems) {
+            let itemInfo = product.find((products) => products._id === items);
+            for (const item in cartItems[items]) {
+                try {
+                    if (cartItems[items][item] > 0) {
+                        totalAmount += itemInfo.price * cartItems[items][item];
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }
+        return totalAmount;
+    };
+
     const value = {
         product,
         currency,
@@ -127,6 +146,8 @@ const ShopContextProvider = (props) => {
         addToCart,
         getCartCount,
         upDateFromCart,
+        getCartAmount,
+        navigate,
     };
     return <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>;
 };
