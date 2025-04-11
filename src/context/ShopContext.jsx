@@ -1,11 +1,11 @@
 import { createContext, useState } from 'react';
 
-import productWhite from '../assets/trevaitrang.jpg';
 import productBlack from '../assets/trevaiden.jpg';
 import typeBlackOne from '../assets/black1.jpg';
 import typeBlackTwo from '../assets/black2.jpg';
 import typeBlackThree from '../assets/black3.jpg';
 
+import productWhite from '../assets/trevaitrang.jpg';
 import typeWhite1 from '../assets/white1.jpg';
 import typeWhite2 from '../assets/white2.jpg';
 import typeWhite3 from '../assets/white3.jpg';
