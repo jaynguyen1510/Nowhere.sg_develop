@@ -49,7 +49,7 @@ const product = [
 
         name: 'Áo Trễ vai đen',
         price: 100000,
-        category: 'Women',
+        category: 'Men',
         size: ['S', 'M', 'L', 'XL'],
         subCategory: 'black',
     },
