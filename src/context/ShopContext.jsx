@@ -47,6 +47,15 @@ const ShopContextProvider = (props) => {
 
         // Cập nhật lại giỏ hàng
         setCartItems(cartData);
+
+        if (token) {
+            try {
+                await axios.post(backendUrl + '/cart/add', { itemId, size }, { headers: { token } });
+            } catch (error) {
+                console.log(error);
+                toast.error(error.message);
+            }
+        }
     };
 
     const getCartCount = () => {
